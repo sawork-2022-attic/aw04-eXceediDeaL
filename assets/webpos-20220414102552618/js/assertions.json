@@ -1,0 +1,10 @@
+{
+  "simulation": "computerdatabase.WebPos",
+  "simulationId": "webpos",
+  "start": 1649931952618,
+  "description": "multi-session",
+  "scenarios": ["Simple"],
+  "assertions": [
+
+  ]
+}
