@@ -10,13 +10,16 @@ import java.util.List;
 
 @Data
 @Component
-@SessionScope
 public class Cart implements Serializable {
 
     private List<Item> items = new ArrayList<>();
 
     public boolean addItem(Item item) {
         return items.add(item);
+    }
+
+    public void clear(){
+        items.clear();
     }
 
     public double getTotal() {

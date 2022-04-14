@@ -10,6 +10,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -44,7 +45,27 @@ public class PosServiceImp implements PosService, Serializable {
         Product product = posDB.getProduct(productId);
         if (product == null) return cart;
 
-        cart.addItem(new Item(product, amount));
+        Item target = null;
+
+        for(var item :cart.getItems()){
+            if(Objects.equals(item.getProduct().getId(), product.getId())){
+                target = item;
+            }
+        }
+
+        if(target == null){
+            target = new Item(product,0);
+            cart.addItem(target);
+        }
+
+        var newquan = Math.max(target.getQuantity() + amount,0);
+        if(newquan == 0) {
+            cart.getItems().remove(target);
+        }
+        else{
+            target.setQuantity(newquan);
+        }
+
         return cart;
     }
 
