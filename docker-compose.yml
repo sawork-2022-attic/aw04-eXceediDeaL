@@ -1,0 +1,47 @@
+version: '3'
+services:
+  db:
+    image: redis
+  web1:
+    depends_on:
+      - db
+    image: webpos-image
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+  web2:
+    depends_on:
+      - db
+    image: webpos-image
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+  web3:
+    depends_on:
+      - db
+    image: webpos-image
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+  web4:
+    depends_on:
+      - db
+    image: webpos-image
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+  main:
+    image: haproxy:2.1
+    depends_on:
+      - web1
+      - web2
+      - web3
+      - web4
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "8080:8080"

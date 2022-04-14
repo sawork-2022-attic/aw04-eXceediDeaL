@@ -1,0 +1,1 @@
+mvn clean compile jib:dockerBuild -DsocksProxyHost='127.0.0.1' -DsocksProxyPort=7890
